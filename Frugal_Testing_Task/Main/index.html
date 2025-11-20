@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quiz Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="landing-page" id="landingPage">
+            <div class="quiz-header">
+                <h1>Welcome to the Dynamic Quiz Application</h1>
+                <p>Test your knowledge with our interactive quiz</p>
+            </div>
+
+            <div class="quiz-selection">
+                <div class="selection-group">
+                    <label for="category">Select Category:</label>
+                    <select id="category">
+                        <option value="">-- Choose a Category --</option>
+                        <option value="science">Science</option>
+                        <option value="history">History</option>
+                        <option value="geography">Geography</option>
+                        <option value="technology">Technology</option>
+                        <option value="sports">Sports</option>
+                    </select>
+                </div>
+
+                <div class="selection-group">
+                    <label for="difficulty">Select Difficulty Level:</label>
+                    <select id="difficulty">
+                        <option value="">-- Choose Difficulty --</option>
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <button id="startQuizBtn" type="button" class="btn btn-primary">Start Quiz</button>
+            </div>
+
+            <div class="info-section">
+                <h3>Quiz Information</h3>
+                <ul>
+                    <li>Each question has a 30-second time limit</li>
+                    <li>Select your answer before time runs out</li>
+                    <li>You can navigate between questions using Previous/Next buttons</li>
+                    <li>Review your answers before submitting</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+    <script>
+        document.getElementById('startQuizBtn').addEventListener('click', function() {
+            const category = document.getElementById('category');
+            const difficulty = document.getElementById('difficulty');
+
+            if (!category.value || !difficulty.value) {
+                // Add error shake animation to dropdowns
+                if (!category.value) {
+                    category.classList.add('error-shake');
+                    setTimeout(() => category.classList.remove('error-shake'), 400);
+                }
+                if (!difficulty.value) {
+                    difficulty.classList.add('error-shake');
+                    setTimeout(() => difficulty.classList.remove('error-shake'), 400);
+                }
+                alert('Please select both category and difficulty level!');
+                return;
+            }
+
+            // Store selection in sessionStorage
+            sessionStorage.setItem('selectedCategory', category.value);
+            sessionStorage.setItem('selectedDifficulty', difficulty.value);
+
+            // Redirect to quiz page
+            window.location.href = 'quiz.html';
+        });
+    </script>
+</body>
+</html>
